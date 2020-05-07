@@ -1,15 +1,9 @@
 'use strict';
-const {
-	V4MAPPED,
-	ADDRCONFIG,
-	promises: {
-		Resolver: AsyncResolver
-	},
-	lookup
-} = require('dns');
-const {promisify} = require('util');
-const os = require('os');
-const HostsResolver = require('./hosts-resolver');
+import dns from 'dns';
+const { V4MAPPED, ADDRCONFIG, promises: { Resolver: AsyncResolver }, lookup } = dns;
+import { promisify } from 'util';
+import { networkInterfaces } from 'os';
+import HostsResolver from './hosts-resolver';
 
 const kCacheableLookupCreateConnection = Symbol('cacheableLookupCreateConnection');
 const kCacheableLookupInstance = Symbol('cacheableLookupInstance');
@@ -31,7 +25,7 @@ const getIfaceInfo = () => {
 	let has4 = false;
 	let has6 = false;
 
-	for (const device of Object.values(os.networkInterfaces())) {
+	for (const device of Object.values(networkInterfaces())) {
 		for (const iface of device) {
 			if (iface.internal) {
 				continue;
@@ -344,5 +338,6 @@ class CacheableLookup {
 	}
 }
 
-module.exports = CacheableLookup;
-module.exports.default = CacheableLookup;
+export default CacheableLookup;
+const _default = CacheableLookup;
+export { _default as default };
