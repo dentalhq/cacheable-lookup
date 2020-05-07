@@ -2,8 +2,10 @@
 const {
 	V4MAPPED,
 	ADDRCONFIG,
+	promises,
 	lookup
 } = require('dns');
+console.log(promises);
 const {Resolver: AsyncResolver} = require('dns').promises;
 const {promisify} = require('util');
 const os = require('os');
